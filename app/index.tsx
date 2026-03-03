@@ -1,7 +1,8 @@
-import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { View } from "react-native";
 
 export default function Index() {
+  const [results, setResults] = useState<any[]>([]);
   useEffect(() => {
     console.log("Entre entre en pantalla");
     getPokemons();
@@ -15,10 +16,15 @@ export default function Index() {
     console.log(response);
     const data = await response.json();
     console.log(data.results);
+    setResults(data.results);
   };
   return (
     <View>
-      <Text>Nataly</Text>
+      <ul>
+        {results.map((item) => {
+          return <li key={item.name}> {item.name} </li>;
+        })}
+      </ul>
     </View>
   );
 }

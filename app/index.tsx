@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
+import PokemonCard from "../components/PokemonCard";
 
 export default function Index() {
   const [results, setResults] = useState<any[]>([]);
   useEffect(() => {
-    console.log("Entre entre en pantalla");
+    console.log("Entre en pantalla");
     getPokemons();
   }, []);
 
@@ -19,12 +20,14 @@ export default function Index() {
     setResults(data.results);
   };
   return (
-    <View>
-      <ul>
-        {results.map((item) => {
-          return <li key={item.name}> {item.name} </li>;
+    <ScrollView>
+      <View>
+        {results.map((poke) => {
+          return (
+            <PokemonCard key={poke.name} name={poke.name} url={poke.url} />
+          );
         })}
-      </ul>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
